@@ -14,7 +14,7 @@ AWS.config.setPromisesDependency(bluebird);
 
 const db = new AWS.DynamoDB.DocumentClient();
 
-const addS3Upload = (team, urls) => {
+const recordS3Upload = (team, urls) => {
   const params = {
     TableName: 's3-uploads',
     Item: {
@@ -36,7 +36,15 @@ const retrieveTeamUrls = (team) => {
   return db.query(params).promise();
 }
 
+const retrieveAllTeamUrls = () => {
+  const params = {
+    TableName: 's3-uploads',
+  }
+  return db.scan(params).promise();
+}
+
 module.exports = {
-  addS3Upload,
-  retrieveTeamUrls
+  recordS3Upload,
+  retrieveTeamUrls,
+  retrieveAllTeamUrls
 }

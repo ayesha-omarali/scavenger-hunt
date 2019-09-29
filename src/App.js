@@ -4,25 +4,30 @@ import './App.css';
 import styled from '@emotion/styled'
 import { Flex, Box } from '@rebass/grid/emotion'
 
-function App() {
-  return (
-    <AppContainer>
-      <AppHeader>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </AppHeader>
-    </AppContainer>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <AppContainer>
+        <AppHeader>
+          <p>
+            WELCOME TO DPHIE SCAVENGER HUNT!
+          </p>
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            ~ sign with your Berkeley Email here ~ 
+          </p>
+          {/* <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a> */}
+        </AppHeader>
+      </AppContainer>
+    );
+  }
 }
 
 
@@ -38,10 +43,9 @@ const AppHeader = styled(Flex)`
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #FDB515;
+  font-family: monospace;
 `;
 
 const Welcome = styled(Flex)`
 `;
-
-export default App;

@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import TaskPage from './TaskPage';
+import GameContainer from './GameContainer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
   <Router>
@@ -13,6 +15,11 @@ const routing = (
         <Route path="/taskpage">
           <TaskPage />
         </Route>
+
+        <Route path="/game">
+          <GameContainer />
+        </Route>
+
         <Route path="/">
           <App />
         </Route>

@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import styled from '@emotion/styled'
 import { Flex, Box } from '@rebass/grid/emotion'
+import GoogleSignIn from './GoogleSignIn';
 
 export default class App extends React.Component {
   render() {
@@ -12,10 +13,13 @@ export default class App extends React.Component {
           <p>
             WELCOME TO DPHIE SCAVENGER HUNT!
           </p>
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} style={{padding: '20px'}} className="App-logo" alt="logo" />
           <p>
             ~ sign with your Berkeley Email here ~ 
+
           </p>
+          <GoogleSignIn />
+
           {/* <a
             className="App-link"
             href="https://reactjs.org"
@@ -24,7 +28,11 @@ export default class App extends React.Component {
           >
             Learn React
           </a> */}
+        {/* <script src="https://apis.google.com/js/platform.js" async defer />
+        <meta name="google-signin-client_id" content="347105098552-3jvf06c6oq42qrpslcdk5pp8dor9m9a2.apps.googleusercontent.com" />
+        <div class="g-signin2" data-onsuccess="onSignIn"></div> */}
         </AppHeader>
+
       </AppContainer>
     );
   }

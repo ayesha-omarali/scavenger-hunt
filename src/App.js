@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { jsx, css } from '@emotion/core'
+import styled from '@emotion/styled'
 
 function App() {
   return (
@@ -22,5 +24,10 @@ function App() {
     </div>
   );
 }
+
+
+const App = styled.button`
+  color: hotpink;
+`
 
 export default App;

@@ -1,29 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import TaskPage from './TaskPage';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
-
 const routing = (
   <Router>
     <div>
-      <ul>
-        <li>
-          <Link to="/">Sign Into Team</Link>
-        </li>
-        <li>
-          <Link to="/taskpage">Task Pages</Link>
-        </li>
-        <li>
-          <Link to="/tbd">tbd</Link>
-        </li>
-      </ul>
-      <Route path="/" component={App} />
-      <Route path="/taskpage" component={TaskPage} />
+      <Switch>
+        <Route path="/taskpage">
+          <TaskPage />
+        </Route>
+        <Route path="/">
+          <App />
+        </Route>
+      </Switch>
     </div>
   </Router>
 )

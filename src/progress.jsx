@@ -7,10 +7,16 @@ export default class Progress extends React.Component {
 
   render() {
     return(
-      <p>
+      <ProgressContainer>
         DA PROGRESS
-      </p>
+      </ProgressContainer>
     )
   }
 }
 
+const ProgressContainer = styled(Box)`
+  flex-grow: 1;
+  background-color: white;
+  justify-content: center;
+  padding: 30px;
+`;

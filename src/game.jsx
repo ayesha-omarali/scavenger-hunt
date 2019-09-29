@@ -44,7 +44,7 @@ export default class Game extends React.Component {
 const TaskCard = ({title, subtitle, text}) => {
   return (
     <React.Fragment>
-    <Card style={{ width: '100%' }}>
+    <Card style={{ width: '100%', borderColor: '#FDB515' }}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>

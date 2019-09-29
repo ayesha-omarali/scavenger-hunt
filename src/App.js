@@ -1,13 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { jsx, css } from '@emotion/core'
 import styled from '@emotion/styled'
+import { Flex, Box } from '@rebass/grid/emotion'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <AppContainer>
+      <AppHeader>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -20,14 +20,28 @@ function App() {
         >
           Learn React
         </a>
-      </header>
-    </div>
+      </AppHeader>
+    </AppContainer>
   );
 }
 
 
-const App = styled.button`
-  color: hotpink;
-`
+const AppContainer = styled('div')`
+  text-align: center;
+`;
+
+const AppHeader = styled(Flex)`
+  background-color: #003262;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+`;
+
+const Welcome = styled(Flex)`
+`;
 
 export default App;

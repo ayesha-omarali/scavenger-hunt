@@ -2,30 +2,40 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Flex, Box } from '@rebass/grid/emotion';
 import Game from './game';
+import Progress from './progress';
 
 export default class GameContainer extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = { tasksPage: true };
+  }
+
+  updatePage(bool) {
+    this.setState({
+      tasksPage: bool
+    }, 
+    () => {console.log(this.state)});
+  }
 
   render() {
     return (
       <Wrapper>
         <HeaderContainer>
-          <GameHeader>
+          <GameHeader onClick={(e) => this.updatePage(true)}>
             VIEW TASKS
           </GameHeader>
 
-          <ProgressHeader>
+          <ProgressHeader onClick={(e) => this.updatePage(false)}>
             VIEW PROGRESS
           </ProgressHeader>
         </HeaderContainer>
 
         <Main>
-          <Game/>
+          {this.state.tasksPage ? <Game/> : <Progress />}
         </Main>
         
-        
-        
       </Wrapper>
-
     );
   }
 }

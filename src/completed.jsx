@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { Flex, Box } from '@rebass/grid/emotion'
 import GameContainer from './GameContainer';
 import Card from 'react-bootstrap/Card';
+import logo from './logo.svg';
 
 export default class Completed extends React.Component {
 
@@ -19,6 +20,8 @@ export default class Completed extends React.Component {
 
     return(
       <CompletedContainer>
+        <img src={logo} style={{alignItems: 'center', justifyContent: 'center', padding: '10px 0px'}} className="App-logo-spinning" alt="logo" />
+
         <TalliedPoints>
           Total Points: {totalPoints}
         </TalliedPoints>
@@ -46,13 +49,14 @@ const TaskCard = ({title, subtitle, text}) => {
   )
 }
 
-const CompletedContainer = styled(Box)`
+const CompletedContainer = styled(Flex)`
   flex-grow: 1;
   background-color: white;
   justify-content: center;
   padding: 30px;
   overflow: scroll;
   font-family: sans-serif;
+  flex-direction: column;
 `;
 
 const TalliedPoints = styled(Flex)`

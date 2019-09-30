@@ -8,6 +8,12 @@
   pointer-events: none;
 }
 
+.App-logo-spinning {
+  animation: App-logo-spin infinite 20s linear; /*THIS MAKES IT SPIN! */
+  height: 40vmin;
+  pointer-events: none;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

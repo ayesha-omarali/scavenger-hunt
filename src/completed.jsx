@@ -3,8 +3,11 @@ import styled from '@emotion/styled'
 import { Flex, Box } from '@rebass/grid/emotion'
 import GameContainer from './GameContainer';
 import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 import logo from './logo.svg';
+import { Player } from 'video-react';
+import 'video-react/dist/video-react.css';
 
 export default class Completed extends React.Component {
   constructor(props) {
@@ -38,7 +41,9 @@ export default class Completed extends React.Component {
   }
 }
 
-const TaskCard = ({title, subtitle, text}) => {
+const TaskCard = ({ title, subtitle, text, fileName }) => {
+  const fileType = fileName.split('.');
+  const fileDescription = fileType[fileType.length - 1] === 'jpg' ? 'image' : 'video';
   return (
     <React.Fragment>
       <Card style={{ width: '100%', borderColor: '#FDB515' }}>
@@ -48,8 +53,19 @@ const TaskCard = ({title, subtitle, text}) => {
           <Card.Text>
             {text}
           </Card.Text>
-          {/* TODO: DISPLAY EVIDENCE */}
         </Card.Body>
+        {
+          fileDescription === 'image' ? 
+          (
+            <Image src={fileName} fluid />
+          ) : 
+          (
+            <Player
+              fluid
+              src={fileName}
+            />
+          )
+        }
       </Card>
       <p></p>
     </React.Fragment>
@@ -70,4 +86,8 @@ const TalliedPoints = styled(Flex)`
   font-family: helvetica-bold;
   font-size: calc(20px + 2vmin);
   padding: 10px 0px;
+`;
+
+const ImageContainer = styled(Flex)`
+  size
 `;

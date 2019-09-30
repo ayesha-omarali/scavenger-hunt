@@ -18,6 +18,10 @@ export default class Game extends React.Component {
     this.setState({ tasks: pendingTasks.data });
   }
 
+  triggerRedirect(e) {
+    e.preventDefault();
+  }
+
 
   render() {
     return(
@@ -28,7 +32,9 @@ export default class Game extends React.Component {
   }
 }
 
-const TaskCard = ({title, subtitle, text}) => {
+const TaskCard = ({id, title, subtitle, text}) => {
+  const setCurrentTask = () => localStorage.setItem('currentTask', id);
+
   return (
     <React.Fragment>
       <Card style={{ width: '100%', borderColor: '#FDB515' }}>
@@ -38,7 +44,7 @@ const TaskCard = ({title, subtitle, text}) => {
           <Card.Text>
             {text}
           </Card.Text>
-          <Card.Link href="#">Submit Evidence</Card.Link>
+          <Card.Link onClick={setCurrentTask} href="/taskpage">Submit Evidence</Card.Link>
         </Card.Body>
       </Card>
       <p></p>

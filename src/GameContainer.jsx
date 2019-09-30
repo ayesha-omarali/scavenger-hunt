@@ -15,14 +15,7 @@ class GameContainer extends React.Component {
     super(props);
     this.state = { tasksPage: true, page: 'missions'};
   }
-
-  // updateMissionsPage(bool) { //changes view between missions to do and completed missions
-  //   this.setState({
-  //     tasksPage: bool
-  //   }, 
-  //   () => {console.log(this.state)});
-  // }
-
+  
   navigateToRoute(newRoute){ 
     this.setState({
       page: newRoute

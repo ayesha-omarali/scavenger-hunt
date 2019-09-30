@@ -1,6 +1,6 @@
-const { uploadFile } = require('./s3Client');
+const { uploadFile, retrieveFile } = require('./s3Client');
 const { 
-  recordS3Upload, 
+  recordS3Upload,
   retrieveTeamUrls, 
   retrieveAllTasks, 
   retrieveTeamCompletedTasks, 
@@ -21,7 +21,7 @@ const handleUpload = async (team, data, type, taskId) => {
   // Store s3 object urls in dynamo for retrieval
   const urls = (teamUrls && teamUrls.Items[0] && teamUrls.Items[0].urls) || [];
   const fileName = `https://s3-us-west-1.amazonaws.com/ayesha-scavenger-hunt/${s3BucketName}`
-  urls.push({ fileName, timestamp: new Date().getTime()});
+  urls.push({ taskId, fileName, timestamp: new Date().getTime()});
   await recordS3Upload(team, urls);
 
   // Update completion of task in dynamo
@@ -38,7 +38,21 @@ const handleTasks = async (team, completed) => {
   if (!team) {
     result = await retrieveAllTasks();
   } else if (completed) {
-    result = await retrieveTeamCompletedTasks(team);
+    const [tasks, s3Urls] = await Promise.all([
+      retrieveTeamCompletedTasks(team),
+      retrieveTeamUrls(team)
+    ])
+    const Items = tasks.Items.map((task) => {
+      const num = task.id.toString();
+      const s3Match = s3Urls.Items[0].urls.find(({ taskId }) => {
+        console.log(num, "NUM");
+        console.log(taskId, "TASK ID");
+        return num === taskId;
+      })
+      const { fileName, timestamp } = s3Match;
+      return Object.assign(task, { fileName, timestamp });
+    })
+    result = { Items }
   } else {
     result = await retrieveTeamPendingTasks(team);
   }

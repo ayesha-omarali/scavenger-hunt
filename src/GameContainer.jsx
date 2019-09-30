@@ -27,7 +27,6 @@ class GameContainer extends React.Component {
     this.setState({
       page: newRoute
     })
-    // this.props.history.push(`/${newRoute}`);
   }
 
   render() {

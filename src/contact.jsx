@@ -29,4 +29,5 @@ const ContactContainer = styled(Box)`
   padding: 30px;
   overflow: scroll;
   font-family: sans-serif;
+  top: 50%
 `;

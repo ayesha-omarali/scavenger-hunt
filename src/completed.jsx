@@ -4,6 +4,7 @@ import { Flex, Box } from '@rebass/grid/emotion'
 import GameContainer from './GameContainer';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import logo from './logo.svg';
 
 export default class Completed extends React.Component {
   constructor(props) {
@@ -26,6 +27,8 @@ export default class Completed extends React.Component {
   render() {
     return(
       <CompletedContainer>
+        <img src={logo} style={{alignItems: 'center', justifyContent: 'center', padding: '10px 0px'}} className="App-logo-spinning" alt="logo" />
+
         <TalliedPoints>
           Total Points: {this.state.totalPoints}
         </TalliedPoints>
@@ -45,7 +48,7 @@ const TaskCard = ({title, subtitle, text}) => {
           <Card.Text>
             {text}
           </Card.Text>
-          <Card.Link href="#">Submit Evidence</Card.Link>
+          {/* TODO: DISPLAY EVIDENCE */}
         </Card.Body>
       </Card>
       <p></p>
@@ -53,13 +56,14 @@ const TaskCard = ({title, subtitle, text}) => {
   )
 }
 
-const CompletedContainer = styled(Box)`
+const CompletedContainer = styled(Flex)`
   flex-grow: 1;
   background-color: white;
   justify-content: center;
   padding: 30px;
   overflow: scroll;
   font-family: sans-serif;
+  flex-direction: column;
 `;
 
 const TalliedPoints = styled(Flex)`

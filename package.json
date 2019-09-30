@@ -16,6 +16,7 @@
     "create-hash": "^1.2.0",
     "emotion": "^10.0.17",
     "emotion-theming": "^10.0.19",
+    "multer": "^1.4.2",
     "randomstring": "^1.1.5",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",

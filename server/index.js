@@ -1,43 +1,32 @@
 require('dotenv').config()
 
 const express = require('express');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const multer = require('multer');
+
 const app = express();
 const port = 8000;
-const cors = require('cors');
-const Busboy = require('busboy');
-const { handleUpload } = require('./controller');
-const { retrieveTeamUrls, retrieveAllTeamUrls } = require('./dynamoDbClient');
+const storage = multer.memoryStorage()
+const upload = multer({ storage })
+const { handleUpload, handleTasks } = require('./controller');
+const { retrieveTeamUrls, retrieveAllTeamUrls, retrieveUserTeam } = require('./dynamoDbClient');
 
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(cors());
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.post('/upload/:team', (req, res) => {
-  const busboy = new Busboy({headers: req.headers});
-  let fileData = null;
-  busboy.on('file', (_, file) => {
-    file.on('data', (data) => {
-      if (fileData === null) {
-        fileData = data;
-      } else {
-        fileData = Buffer.concat([fileData, data]);
-      }
-    });
-
-    file.on('end', async () => {
-      try {
-        const { team } = req.params;
-        await handleUpload(team, fileData)
-        res.end();
-      } catch(e) {
-        console.log(e, "ERRR");
-        res.status(500).send(e);
-      }
-    });
-  });
-  req.pipe(busboy);
+app.post('/upload/:type/:team/:taskId', upload.single('file'), async (req, res) => {
+  const { team, type, taskId } = req.params;
+  const { buffer } = req.file;
+  try {
+    handleUpload(team, buffer, type, taskId);
+    return res.send();
+  } catch(e) {
+    console.log(e, "ERRRR");
+    return res.status(500).send(e);
+  }
 })
 
 app.get('/urls', async (req, res) => {
@@ -50,6 +39,21 @@ app.get('/urls', async (req, res) => {
     response.push(url)
   }));
   res.send(response.sort((a, b) => a.timestamp < b.timestamp));
+})
+
+app.get('/tasks', async (req, res) => {
+  const { team, completed } = req.query;
+  const result = await handleTasks(team, completed);
+  res.send(result);
+})
+
+app.get('/userTeam', async (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    res.status(404).send("Query must include email address");
+  }
+  const result = await retrieveUserTeam(email);
+  res.send(result.Items[0] && result.Items[0].team);
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))

@@ -22,7 +22,7 @@ export default class TaskPage extends React.Component {
     //define message container
     let err = []
     // list allow mime type
-   const types = ['image/png', 'image/jpeg', 'image/gif']
+   const types = ['image/png', 'image/jpeg', 'image/gif', 'video/mp4']
     // loop access array
     for(var x = 0; x<files.length; x++) {
      // compare file type find doesn't matach
@@ -41,17 +41,17 @@ export default class TaskPage extends React.Component {
 
   maxSelectFile=(event)=>{
     let files = event.target.files
-        if (files.length > 3) { 
-           const msg = 'Only 3 images can be uploaded at a time'
-           event.target.value = null
-           toast.warn(msg)
-           return false;
-      }
+    if (files.length > 1) { 
+      const msg = 'Only 1 image can be uploaded at a time'
+      event.target.value = null
+      toast.warn(msg)
+      return false;
+    }
     return true;
   }
   checkFileSize=(event)=>{
     let files = event.target.files
-    let size = 2000000 
+    let size = Infinity; 
     let err = []; 
     for(var x = 0; x<files.length; x++) {
     if (files[x].size > size) {
@@ -82,7 +82,7 @@ export default class TaskPage extends React.Component {
     for(var x = 0; x<this.state.selectedFile.length; x++) {
       data.append('file', this.state.selectedFile[x])
     }
-    axios.post("http://localhost:8000/upload", data, {
+    axios.post(`http://localhost:8000/upload/video/test/1`, data, {
       onUploadProgress: ProgressEvent => {
         this.setState({
           loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
@@ -99,20 +99,20 @@ export default class TaskPage extends React.Component {
 
   render() {
     return (
-      <div class="container">
-	      <div class="row">
-      	  <div class="offset-md-3 col-md-6">
-               <div class="form-group files">
-                <label>Upload Your File </label>
-                <input type="file" class="form-control" multiple onChange={this.onChangeHandler}/>
-              </div>  
-              <div class="form-group">
-              <ToastContainer />
-              <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
-        
-              </div> 
-              
-              <button type="button" class="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
+      <div className="container">
+	      <div className="row">
+      	  <div className="offset-md-3 col-md-6">
+            <div className="form-group files">
+            <label>Upload Your File </label>
+            <input type="file" className="form-control" multiple onChange={this.onChangeHandler}/>
+          </div>  
+          <div className="form-group">
+          <ToastContainer />
+          <Progress max="100" color="success" value={this.state.loaded} >{Math.round(this.state.loaded,2) }%</Progress>
+    
+          </div> 
+          
+          <button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>
 	      </div>
       </div>
       </div>

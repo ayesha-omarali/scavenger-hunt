@@ -1,48 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { Flex, Box } from '@rebass/grid/emotion';
+import { Box } from '@rebass/grid/emotion';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios';
 
 export default class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: []
+    }
+  }
+
+  async componentDidMount() {
+    const team = localStorage.getItem('team');
+    const pendingTasks = await axios.get(`http://localhost:8000/tasks?team=${team}`);
+    this.setState({ tasks: pendingTasks.data });
+  }
+
 
   render() {
-    const tasks = [
-      {
-        title: 'Starting Task!', 
-        subtitle: '10 points',
-        text: 'Take a selfie with your team to mark the start of your adventures!',
-        points: 10
-      },
-      {
-        title: 'Hug a Stranger', 
-        subtitle: '10 points',
-        text: 'Find a stranger, and with their consent ask for a hug',
-        points: 10
-      },
-      {
-        title: 'Ice a Teammate',
-        subtitle: '50 points',
-        text: 'Find/buy some Smirnoff Ice and ice a teammate, extra 50 points if you find another DPhiE member not participating in Savenger Hunt!',
-        points: 50
-      },
-      {
-        title: 'Ask a professor for their autograph',
-        subtitle: '100 points',
-        text: 'Do your best to pin down a professor for their autograph!',
-        points: 100
-      },
-      {
-        title: 'Get Tipped for Performing on Telegraph',
-        subtitle: '200 points',
-        text: 'Do any performance on Telegraph - music, dancing, comedy and provide evidence of supporters / photo of tips or tippers!',
-      }
-    ]
-
     return(
       <GameContainer>
-        {tasks.map(TaskCard)}
+        {this.state.tasks.map(TaskCard)}
       </GameContainer>
-
     );
   }
 }

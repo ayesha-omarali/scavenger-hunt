@@ -42,7 +42,7 @@ const handleTasks = async (team, completed) => {
   } else {
     result = await retrieveTeamPendingTasks(team);
   }
-  return result.Items[0] || [];
+  return result.Items || [];
 }
 
 module.exports = {

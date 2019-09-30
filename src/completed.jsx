@@ -3,26 +3,33 @@ import styled from '@emotion/styled'
 import { Flex, Box } from '@rebass/grid/emotion'
 import GameContainer from './GameContainer';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios';
 
 export default class Completed extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: [],
+      totalPoints: 0
+    }
+  }
+
+  async componentDidMount() {
+    const team = localStorage.getItem('team');
+    const completedTasks = await axios.get(`http://localhost:8000/tasks?team=${team}&completed=true`);
+    const pointTally = completedTasks.data.reduce((currentTally, task) => {
+      return currentTally + task.points;
+    }, 0);
+    this.setState( { tasks: completedTasks.data, totalPoints: pointTally })
+  }
 
   render() {
-    const totalPoints = 9;
-    const tasks = [
-      {
-        title: 'Starting Task!', 
-        subtitle: '10 points',
-        text: 'Take a selfie with your team to mark the start of your adventures!',
-        points: 10
-      },
-    ]
-
     return(
       <CompletedContainer>
         <TalliedPoints>
-          Total Points: {totalPoints}
+          Total Points: {this.state.totalPoints}
         </TalliedPoints>
-        {tasks.map(TaskCard)}
+        {this.state.tasks.map(TaskCard)}
       </CompletedContainer>
     )
   }

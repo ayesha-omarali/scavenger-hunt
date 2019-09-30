@@ -44,7 +44,7 @@ app.get('/urls', async (req, res) => {
 app.get('/tasks', async (req, res) => {
   const { team, completed } = req.query;
   const result = await handleTasks(team, completed);
-  res.send(result);
+  res.send(result.sort((a, b) => a.points > b.points));
 })
 
 app.get('/userTeam', async (req, res) => {

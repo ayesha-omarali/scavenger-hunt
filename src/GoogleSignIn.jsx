@@ -6,6 +6,7 @@ import { Flex, Box } from '@rebass/grid/emotion'
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'
 import GoogleLogin from 'react-google-login';
+import axios from 'axios';
 
 export default class GoogleSignIn extends React.Component{
   constructor(props) {
@@ -13,9 +14,12 @@ export default class GoogleSignIn extends React.Component{
     this.state = { loggedIn: false }
   }
 
-  responseGoogle = (response) => {
-    localStorage.setItem('email', response.profileObj.email);
+  responseGoogle = async (response) => {
+    const email = response.profileObj.email
+    localStorage.setItem('email', email);
     localStorage.setItem('loggedIn', true);
+    const team = await axios.get(`http://localhost:8000/userTeam?email=${email}`);
+    localStorage.setItem('team', team.data);
     this.setState({ loggedIn: true });
   }
 

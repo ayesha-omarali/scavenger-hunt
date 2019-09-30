@@ -27,7 +27,6 @@ app.post('/upload/:type/:team/:taskId', upload.single('file'), async (req, res) 
     console.log(e, "ERRRR");
     return res.status(500).send(e);
   }
-  
 })
 
 app.get('/urls', async (req, res) => {

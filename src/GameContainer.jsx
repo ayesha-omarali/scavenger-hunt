@@ -16,12 +16,12 @@ class GameContainer extends React.Component {
     this.state = { tasksPage: true, page: 'missions'};
   }
 
-  updateMissionsPage(bool) { //changes view between missions to do and completed missions
-    this.setState({
-      tasksPage: bool
-    }, 
-    () => {console.log(this.state)});
-  }
+  // updateMissionsPage(bool) { //changes view between missions to do and completed missions
+  //   this.setState({
+  //     tasksPage: bool
+  //   }, 
+  //   () => {console.log(this.state)});
+  // }
 
   navigateToRoute(newRoute){ 
     this.setState({
@@ -39,6 +39,21 @@ class GameContainer extends React.Component {
         return(<Contact />)
       }
     }
+
+    const Missions = () => {
+      return(
+        <MissionsWrapper>
+        <Tabs id="controlled-tab-example" transition={false}>
+          <Tab eventKey="REMAINING MISSIONS" title="REMAINING MISSIONS">
+            <Game/> 
+          </Tab>
+          <Tab eventKey="COMPLETED MISSIONS" title="COMPLETED MISSIONS">
+            <Completed />
+          </Tab>
+        </Tabs>
+      </MissionsWrapper>
+      )
+    };
 
     return (
       <Wrapper>
@@ -62,21 +77,6 @@ class GameContainer extends React.Component {
   }
 }
 
-const Missions = () => {
-  return(
-    <Main>
-    <Tabs id="controlled-tab-example" transition={false}>
-      <Tab eventKey="REMAINING MISSIONS" title="REMAINING MISSIONS" onClick={(e) => this.updateMissionsPage(true)}>
-        <Game/> 
-      </Tab>
-      <Tab eventKey="COMPLETED MISSIONS" title="COMPLETED MISSIONS" onClick={(e) => this.updateMissionsPage(false)}>
-        <Completed />
-      </Tab>
-    </Tabs>
-  </Main>
-  )
-};
-
 const Wrapper = styled(Flex)`
   background-color: #003262;
   flex-direction: column;
@@ -85,7 +85,7 @@ const Wrapper = styled(Flex)`
   margin: 0;
 `;
 
-const Main = styled(Box)`
+const MissionsWrapper = styled(Box)`
   flex-grow: 2;
   flex: 1 0 auto;
   height: 100%

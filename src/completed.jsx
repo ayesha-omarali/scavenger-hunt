@@ -38,7 +38,7 @@ const TaskCard = ({title, subtitle, text}) => {
           <Card.Text>
             {text}
           </Card.Text>
-          <Card.Link href="#">Submit Evidence</Card.Link>
+          {/* TODO: DISPLAY EVIDENCE */}
         </Card.Body>
       </Card>
       <p></p>

@@ -18,11 +18,6 @@ export default class Game extends React.Component {
     this.setState({ tasks: pendingTasks.data });
   }
 
-  triggerRedirect(e) {
-    e.preventDefault();
-  }
-
-
   render() {
     return(
       <GameContainer>

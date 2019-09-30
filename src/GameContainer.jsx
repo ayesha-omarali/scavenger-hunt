@@ -1,77 +1,121 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Flex, Box } from '@rebass/grid/emotion';
-import Game from './game';
-import Progress from './progress';
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+import { withRouter } from "react-router-dom";
 
-export default class GameContainer extends React.Component {
+import Game from './game';
+import Completed from './completed';
+import Contact from './contact';
+
+class GameContainer extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = { tasksPage: true };
+    this.state = { tasksPage: true, page: 'missions'};
   }
 
-  updatePage(bool) {
+  updateMissionsPage(bool) {
     this.setState({
       tasksPage: bool
     }, 
     () => {console.log(this.state)});
   }
 
+  navigateToRoute(newRoute){
+    this.setState({
+      page: newRoute
+    })
+    // this.props.history.push(`/${newRoute}`);
+  }
+
   render() {
+    const Main = () => {
+      if (this.state.page === 'missions'){
+        return(<Missions />)
+      } else if(this.state.page === 'progress'){
+        return(<div>HELLO</div>)
+      } else if (this.state.page === 'contact'){
+        return(<Contact />)
+      }
+    }
+
     return (
       <Wrapper>
-        <HeaderContainer>
-          <GameHeader onClick={(e) => this.updatePage(true)}>
-            VIEW TASKS
-          </GameHeader>
 
-          <ProgressHeader onClick={(e) => this.updatePage(false)}>
-            VIEW PROGRESS
-          </ProgressHeader>
-        </HeaderContainer>
+        <Main /> 
 
-        <Main>
-          {this.state.tasksPage ? <Game/> : <Progress />}
-        </Main>
+        <NavContainer>
+          <NavItem style={{color: '#DDD5C7', backgroundColor: '#003262'}} onClick={() => this.navigateToRoute('missions')}>
+            MISSIONS
+          </NavItem>
+          <NavItem style={{color: '#DDD5C7', backgroundColor: '#EE1F60'}} onClick={() => this.navigateToRoute('progress')}>
+            PROGRESS
+          </NavItem>
+          <NavItem style={{color: '#DDD5C7', backgroundColor: '#3B7EA1'}} onClick={() => this.navigateToRoute('contact')}>
+            CONTACT
+          </NavItem>
+        </NavContainer>
         
       </Wrapper>
     );
   }
 }
 
+const Missions = () => {
+  return(
+    <Main>
+    <Tabs id="controlled-tab-example" transition={false}>
+      <Tab eventKey="REMAINING MISSIONS" title="REMAINING MISSIONS" onClick={(e) => this.updateMissionsPage(true)}>
+        <Game/> 
+      </Tab>
+      <Tab eventKey="COMPLETED MISSIONS" title="COMPLETED MISSIONS" onClick={(e) => this.updateMissionsPage(false)}>
+        <Completed />
+      </Tab>
+    </Tabs>
+  </Main>
+  )
+};
+
 const Wrapper = styled(Flex)`
   background-color: #003262;
   flex-direction: column;
-  min-height: 100vh;
+  // min-height: 100vh;
+  height: 100%;
+  margin: 0;
 `;
 
-const HeaderContainer = styled(Flex)`
-  flex-basis: 100%;
-  text-align: center;
-  justify-content: center;
-  flex-direction: row;
+const Main = styled(Box)`
+  flex-grow: 2;
+  flex: 1 0 auto;
+  height: 100%
+  overflow: scroll;
   font-family: monospace;
-  font-size: calc(12px + 2vmin);
-  color: #DDD5C7 //bay fog
+  font-size: calc(8px + 2vmin);
+  width: 100%;
 `;
 
-const GameHeader = styled(Flex)`
-  padding: 20px;
+const NavContainer = styled(Flex)`
+  flex-basis: 100%;
+  text-align: center;
+  justify-content: space-evenly;
+  flex-shrink: 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+`;
+
+const NavItem = styled(Box)`
   text-align: center;
   justify-content: center;
-
-  background-color: #003262; //cal blue
-  flex-basis: 100%;
-`;
-
-const ProgressHeader = styled(Flex)`
-  padding: 20px;
-  background-color: #EE1F60; //rose garden
-  flex-basis: 100%;
-  justify-content: center;
-`;
-
-const Main = styled(Flex)`
+  font-family: monospace;
+  font-size: calc(17px + 2vmin);
+  color: #DDD5C7 //bay fog
+  align-self: stretch;
   flex-grow: 1;
 `;
+
+export default withRouter(GameContainer);

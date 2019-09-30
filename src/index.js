@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import TaskPage from './TaskPage';
 import GameContainer from './GameContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const routing = (
   <Router>

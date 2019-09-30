@@ -8,9 +8,15 @@ export default class Game extends React.Component {
   render() {
     const tasks = [
       {
+        title: 'Starting Task!', 
+        subtitle: '10 points',
+        text: 'Take a selfie with your team to mark the start of your adventures!',
+        points: 10
+      },
+      {
         title: 'Hug a Stranger', 
         subtitle: '10 points',
-        text: 'find a stranger, and with their consent ask for a hug',
+        text: 'Find a stranger, and with their consent ask for a hug',
         points: 10
       },
       {
@@ -44,17 +50,17 @@ export default class Game extends React.Component {
 const TaskCard = ({title, subtitle, text}) => {
   return (
     <React.Fragment>
-    <Card style={{ width: '100%', borderColor: '#FDB515' }}>
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
-        <Card.Text>
-          {text}
-        </Card.Text>
-        <Card.Link href="#">Submit Photo/Video</Card.Link>
-      </Card.Body>
-    </Card>
-    <p></p>
+      <Card style={{ width: '100%', borderColor: '#FDB515' }}>
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
+          <Card.Text>
+            {text}
+          </Card.Text>
+          <Card.Link href="#">Submit Evidence</Card.Link>
+        </Card.Body>
+      </Card>
+      <p></p>
     </React.Fragment>
   )
 }
@@ -64,5 +70,7 @@ const GameContainer = styled(Box)`
   background-color: white;
   justify-content: center;
   padding: 30px;
+  overflow: scroll;
+  font-family: sans-serif;
 `;
 

@@ -6,7 +6,7 @@ import { Flex, Box } from '@rebass/grid/emotion'
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'
 import GoogleLogin from 'react-google-login';
-import axios from 'axios';
+import { axiosClient } from './AxiosClient';
 import Modal from 'react-bootstrap/Modal';
 
 export default class GoogleSignIn extends React.Component{
@@ -23,7 +23,7 @@ export default class GoogleSignIn extends React.Component{
 
   responseGoogle = async (response) => {
     const email = response.profileObj.email
-    const team = await axios.get(`/userTeam?email=${email}`);
+    const team = await axiosClient.get(`/userTeam?email=${email}`);
     if (!team.data) {
       alert("Your email hasn't been registered!");
     } else {

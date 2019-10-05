@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled'
 import { Flex, Box } from '@rebass/grid/emotion'
-import axios from 'axios';
 import {Progress} from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { axiosClient } from './AxiosClient';
 
 export default class TaskPage extends React.Component {
   constructor(props) {
@@ -85,7 +85,7 @@ export default class TaskPage extends React.Component {
     const fileType = this.state.selectedFile[0].type.includes("image") ? "image" : "video";
     const team = localStorage.getItem('team');
     const currentTask = localStorage.getItem('currentTask');
-    axios.post(`/upload/${fileType}/${team}/${currentTask}`, data, {
+    axiosClient.post(`/upload/${fileType}/${team}/${currentTask}`, data, {
       onUploadProgress: ProgressEvent => {
         this.setState({
           loaded: (ProgressEvent.loaded / ProgressEvent.total*100),

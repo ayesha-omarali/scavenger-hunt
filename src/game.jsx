@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Box } from '@rebass/grid/emotion';
 import Card from 'react-bootstrap/Card';
-import axios from 'axios';
+import { axiosClient } from './AxiosClient';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class Game extends React.Component {
 
   async componentDidMount() {
     const team = localStorage.getItem('team');
-    const pendingTasks = await axios.get(`/tasks?team=${team}`);
+    const pendingTasks = await axiosClient.get(`/tasks?team=${team}`);
     this.setState({ tasks: pendingTasks.data });
   }
 

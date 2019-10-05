@@ -4,7 +4,7 @@ import { Flex, Box } from '@rebass/grid/emotion'
 import GameContainer from './GameContainer';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
-import axios from 'axios';
+import { axiosClient } from './AxiosClient';
 import logo from './logo.svg';
 import { Player } from 'video-react';
 import 'video-react/dist/video-react.css';
@@ -20,7 +20,7 @@ export default class Completed extends React.Component {
 
   async componentDidMount() {
     const team = localStorage.getItem('team');
-    const completedTasks = await axios.get(`/tasks?team=${team}&completed=true`);
+    const completedTasks = await axiosClient.get(`/tasks?team=${team}&completed=true`);
     const pointTally = completedTasks.data.reduce((currentTally, task) => {
       return currentTally + task.points;
     }, 0);

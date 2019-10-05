@@ -22,6 +22,7 @@ export default class GoogleSignIn extends React.Component{
   }
 
   responseGoogle = async (response) => {
+    console.log(JSON.stringify(response), "RESPONSE");
     const email = response.profileObj.email
     const team = await axios.get(`http://localhost:8000/userTeam?email=${email}`);
     if (!team.data) {
@@ -34,13 +35,17 @@ export default class GoogleSignIn extends React.Component{
     }
   }
 
+  failedResponseGoogle = (error) => {
+    console.log(error);
+  }
+
   render() {
     return !this.state.loggedIn ? 
     (
       <GoogleLogin
       clientId={'347105098552-3jvf06c6oq42qrpslcdk5pp8dor9m9a2.apps.googleusercontent.com'}
       onSuccess={this.responseGoogle}
-      onFailure={this.responseGoogle}
+      onFailure={this.failedResponseGoogle}
       >
         <span> Login with Google</span>
     </GoogleLogin> 

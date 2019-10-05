@@ -18,10 +18,6 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, '../build')));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
-
 app.post('/upload/:type/:team/:taskId', upload.single('file'), async (req, res) => {
   const { team, type, taskId } = req.params;
   const { buffer } = req.file;
@@ -60,5 +56,9 @@ app.get('/userTeam', async (req, res) => {
   const result = await retrieveUserTeam(email);
   res.send(result.Items[0] && result.Items[0].team);
 })
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))

@@ -7,7 +7,7 @@ const path = require('path');
 const multer = require('multer');
 
 const app = express();
-const port = 8000;
+const port = process.env.IS_PROD ? 80 : 8000;
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
 const { handleUpload, handleTasks } = require('./controller');

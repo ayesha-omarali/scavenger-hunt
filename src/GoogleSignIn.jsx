@@ -22,9 +22,8 @@ export default class GoogleSignIn extends React.Component{
   }
 
   responseGoogle = async (response) => {
-    console.log(JSON.stringify(response), "RESPONSE");
     const email = response.profileObj.email
-    const team = await axios.get(`http://localhost:8000/userTeam?email=${email}`);
+    const team = await axios.get(`/userTeam?email=${email}`);
     if (!team.data) {
       alert("Your email hasn't been registered!");
     } else {

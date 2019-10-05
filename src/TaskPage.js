@@ -85,7 +85,7 @@ export default class TaskPage extends React.Component {
     const fileType = this.state.selectedFile[0].type.includes("image") ? "image" : "video";
     const team = localStorage.getItem('team');
     const currentTask = localStorage.getItem('currentTask');
-    axios.post(`http://localhost:8000/upload/${fileType}/${team}/${currentTask}`, data, {
+    axios.post(`/upload/${fileType}/${team}/${currentTask}`, data, {
       onUploadProgress: ProgressEvent => {
         this.setState({
           loaded: (ProgressEvent.loaded / ProgressEvent.total*100),

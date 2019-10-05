@@ -14,7 +14,7 @@ export default class Game extends React.Component {
 
   async componentDidMount() {
     const team = localStorage.getItem('team');
-    const pendingTasks = await axios.get(`http://localhost:8000/tasks?team=${team}`);
+    const pendingTasks = await axios.get(`/tasks?team=${team}`);
     this.setState({ tasks: pendingTasks.data });
   }
 

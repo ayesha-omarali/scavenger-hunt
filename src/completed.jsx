@@ -20,7 +20,7 @@ export default class Completed extends React.Component {
 
   async componentDidMount() {
     const team = localStorage.getItem('team');
-    const completedTasks = await axios.get(`http://localhost:8000/tasks?team=${team}&completed=true`);
+    const completedTasks = await axios.get(`/tasks?team=${team}&completed=true`);
     const pointTally = completedTasks.data.reduce((currentTally, task) => {
       return currentTally + task.points;
     }, 0);

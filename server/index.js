@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const multer = require('multer');
 
 const app = express();
@@ -15,7 +16,11 @@ const { retrieveTeamUrls, retrieveAllTeamUrls, retrieveUserTeam } = require('./d
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(cors());
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 app.post('/upload/:type/:team/:taskId', upload.single('file'), async (req, res) => {
   const { team, type, taskId } = req.params;

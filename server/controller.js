@@ -44,11 +44,7 @@ const handleTasks = async (team, completed) => {
     ])
     const Items = tasks.Items.map((task) => {
       const num = task.id.toString();
-      const s3Match = s3Urls.Items[0].urls.find(({ taskId }) => {
-        console.log(num, "NUM");
-        console.log(taskId, "TASK ID");
-        return num === taskId;
-      })
+      const s3Match = s3Urls.Items[0].urls.find(({ taskId }) => num === taskId);
       const { fileName, timestamp } = s3Match;
       return Object.assign(task, { fileName, timestamp });
     })

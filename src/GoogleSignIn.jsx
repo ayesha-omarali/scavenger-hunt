@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
 
 export default class GoogleSignIn extends React.Component{
   constructor(props) {
@@ -14,13 +15,23 @@ export default class GoogleSignIn extends React.Component{
     this.state = { loggedIn: false }
   }
 
+  componentDidMount() {
+    if (localStorage.getItem('loggedIn')) {
+      this.setState({ loggedIn: true });
+    }
+  }
+
   responseGoogle = async (response) => {
     const email = response.profileObj.email
-    localStorage.setItem('email', email);
-    localStorage.setItem('loggedIn', true);
     const team = await axios.get(`http://localhost:8000/userTeam?email=${email}`);
-    localStorage.setItem('team', team.data);
-    this.setState({ loggedIn: true });
+    if (!team.data) {
+      alert("Your email hasn't been registered!");
+    } else {
+      localStorage.setItem('email', email);
+      localStorage.setItem('loggedIn', true);
+      localStorage.setItem('team', team.data);
+      this.setState({ loggedIn: true });
+    }
   }
 
   render() {

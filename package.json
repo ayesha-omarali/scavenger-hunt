@@ -9,7 +9,7 @@
     "@rebass/grid": "^6.1.0",
     "@rebass/preset": "^4.0.5",
     "aws-sdk": "^2.538.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "busboy": "^0.3.1",
     "cors": "^2.8.5",
